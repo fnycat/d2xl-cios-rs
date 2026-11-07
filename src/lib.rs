@@ -3,12 +3,29 @@
 #![allow(non_camel_case_types)]
 
 mod ipc;
+mod mem;
+mod swi_mload;
 mod syscalls;
+mod tools;
 mod types;
+mod vsprint;
 
 pub use ipc::*;
+pub use mem::*;
+pub use swi_mload::*;
 pub use syscalls::*;
+pub use tools::*;
 pub use types::*;
+pub use vsprint::*;
+
+#[repr(C)]
+pub struct IosInfo {
+    pub syscall_base: cu32,
+    pub dip_version: cu32,
+    pub es_version: cu32,
+    pub ffs_version: cu32,
+    pub iop_version: cu32,
+}
 
 pub type PatcherFunc = unsafe extern "C" fn() -> i32;
 
