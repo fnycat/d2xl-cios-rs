@@ -27,7 +27,7 @@ ARFLAGS	=	rcs
 LIBS	=
 
 # Target
-TARGET	=	cios-lib
+TARGET	=	libcios
 
 # Objects
 OBJS	=	direct_syscalls.o	\
