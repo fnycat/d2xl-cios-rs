@@ -1,5 +1,26 @@
 use crate::types::*;
 
+pub unsafe fn dc_write8(addr: *mut core::ffi::c_void, value: cu8) {
+    unsafe {
+        core::ptr::write_volatile(addr.cast::<cu8>(), value);
+        dc_flush_range(addr, size_of::<cu8>() as i32);
+    }
+}
+
+pub unsafe fn dc_write16(addr: *mut core::ffi::c_void, value: cu16) {
+    unsafe {
+        core::ptr::write_volatile(addr.cast::<cu16>(), value);
+        dc_flush_range(addr, size_of::<cu16>() as i32);
+    }
+}
+
+pub unsafe fn dc_write32(addr: *mut core::ffi::c_void, value: cu32) {
+    unsafe {
+        core::ptr::write_volatile(addr.cast::<cu32>(), value);
+        dc_flush_range(addr, size_of::<cu32>() as i32);
+    }
+}
+
 unsafe extern "C" {
     #[link_name = "DCInvalidateRange"]
     pub unsafe fn dc_invalidate_range(ptr: *mut core::ffi::c_void, size: core::ffi::c_int);
