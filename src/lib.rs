@@ -4,27 +4,27 @@
 
 mod ipc;
 mod mem;
+mod mload;
 mod swi_mload;
 mod syscalls;
 mod tools;
-mod types;
 mod vsprint;
 
 pub use ipc::*;
 pub use mem::*;
+pub use mload::*;
 pub use swi_mload::*;
 pub use syscalls::*;
 pub use tools::*;
-pub use types::*;
 pub use vsprint::*;
 
 #[repr(C)]
 pub struct IosInfo {
-    pub syscall_base: cu32,
-    pub dip_version: cu32,
-    pub es_version: cu32,
-    pub ffs_version: cu32,
-    pub iop_version: cu32,
+    pub syscall_base: u32,
+    pub dip_version: u32,
+    pub es_version: u32,
+    pub ffs_version: u32,
+    pub iop_version: u32,
 }
 
 pub type PatcherFunc = unsafe extern "C" fn() -> i32;
@@ -50,9 +50,9 @@ pub static moduleName: ForceSyncPtr<core::ffi::c_char> = ForceSyncPtr(c"DS4COMP"
 
 unsafe extern "C" {
     #[link_name = "IOS_InitSystem"]
-    pub unsafe fn ios_init_system(patchers: *const Patcher, size: cu32) -> cs32;
+    pub unsafe fn ios_init_system(patchers: *const Patcher, size: u32) -> i32;
     #[link_name = "IOS_CheckPatches"]
-    pub unsafe fn ios_check_patches(patchers: *const Patcher, size: cu32) -> cs32;
+    pub unsafe fn ios_check_patches(patchers: *const Patcher, size: u32) -> i32;
     #[link_name = "IOS_PatchModules"]
-    pub unsafe fn ios_patch_modules(patchers: *const Patcher, size: cu32) -> cs32;
+    pub unsafe fn ios_patch_modules(patchers: *const Patcher, size: u32) -> i32;
 }
